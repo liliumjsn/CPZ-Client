@@ -8,12 +8,12 @@ namespace CPZ_Chat_Client.Model
 {
     public class Message
     {
-        private string sender;
+        private bool isMine;
         private string content;
         private DateTime timestamp;
 
         public string Content { get => content; set => content = value; }
         public DateTime Timestamp { get => timestamp; set => timestamp = value; }
-        public string Sender { get => sender; set => sender = value; }
+        public bool IsMine { get => isMine; set => isMine = value; }
     }
 }

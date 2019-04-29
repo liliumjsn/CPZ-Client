@@ -10,8 +10,24 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation = "Horizontal">
-                    <TextBlock Text = "{Binding Path = Username, Mode = OneWay}" 
-                        Margin = "0 5 3 5"/>
+                    <Ellipse
+                        Width="7"
+                        Height="7"
+                        Fill="ForestGreen"
+                        Margin="3">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="DarkGray" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path = IsOnline, Mode = OneWay}" Value="False">
+                                        <Setter Property="Fill" Value="ForestGreen" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock FontSize="15" Text = "{Binding Path = Username, Mode = OneWay}" 
+                        Margin = "5 5 3 5"/>
                 </StackPanel>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

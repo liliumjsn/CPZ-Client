@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,12 @@ namespace CPZ_Chat_Client.ViewModel
 {
     public class ChatPanelViewModel:BindableBase
     {
+       
         public ChatCommand<string> SendMessageCommand { get; set; }
-        private Message composingMessage;
+        private string composingMessage;
         private ChatUser curChatUser;
         private ChatHistory panelChatHistory;
-        public Message ComposingMessage
+        public string ComposingMessage
         {
             get
             {
@@ -23,8 +25,12 @@ namespace CPZ_Chat_Client.ViewModel
             }
             set
             {
-                composingMessage = value;
-                SendMessageCommand.RaiseCanExecuteChanged();
+                if (value != composingMessage)
+                {
+                    composingMessage = value;
+                    OnPropertyChanged("ComposingMessage");
+                    SendMessageCommand.RaiseCanExecuteChanged();
+                }               
             }
         }
         public ChatUser CurChatUser
@@ -59,12 +65,20 @@ namespace CPZ_Chat_Client.ViewModel
 
         private bool CanSend(string str)
         {
-            return ComposingMessage != null;
+            return ComposingMessage != null && ComposingMessage.Length>0;
         }
 
         private void OnSend(string message)
         {
-            //handle message send
+            //handle message send on REST post
+            PanelChatHistory.Add(new Message
+            {
+                //Handle sender correctly, make myprofile static
+                IsMine = true,
+                Content = ComposingMessage,
+                Timestamp = DateTime.Now
+            });
+            ComposingMessage = "";
         }
 
         //TODO: call REST to get history for curUser
@@ -75,33 +89,32 @@ namespace CPZ_Chat_Client.ViewModel
 
             chatHistory.Add(new Message
             {
-                Sender = "Mark",
+                IsMine = false,
                 Content = "Hello",
                 Timestamp = new DateTime(2019, 03, 28, 22, 35, 5,
                 new CultureInfo("en-US", false).Calendar)
             });
             chatHistory.Add(new Message
             {
-                Sender = "LiliumJSN",
-                Content = "Hi Mark",
+                IsMine = true,
+                Content = "Hi "+ CurChatUser.Username,
                 Timestamp = new DateTime(2019, 03, 28, 22, 37, 5,
                 new CultureInfo("en-US", false).Calendar)
             });
             chatHistory.Add(new Message
             {
-                Sender = "Mark",
+                IsMine = false,
                 Content = "How are you",
                 Timestamp = new DateTime(2019, 03, 28, 22, 38, 5,
                 new CultureInfo("en-US", false).Calendar)
             });
             chatHistory.Add(new Message
             {
-                Sender = "LiliumJSN",
+                IsMine = true,
                 Content = "Fine",
                 Timestamp = new DateTime(2019, 03, 28, 22, 39, 5,
                 new CultureInfo("en-US", false).Calendar)
             });
-
 
             PanelChatHistory = chatHistory;
         }

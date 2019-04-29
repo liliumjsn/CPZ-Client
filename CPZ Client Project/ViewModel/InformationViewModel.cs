@@ -10,7 +10,19 @@ namespace CPZ_Chat_Client.ViewModel
 {
     public class InformationViewModel : BindableBase
     {
-        public Information _mInformation;
+        private Information information;
+
+        public Information Information
+        {
+            get
+            {
+                return information;
+            }
+            set
+            {
+                information = value;
+            }
+        }
 
         public InformationViewModel()
         {
@@ -21,10 +33,10 @@ namespace CPZ_Chat_Client.ViewModel
             Information mInformation = new Information()
             {
                 Title = "Welcome",
-                Message = "Start chatting now"
+                Message = "Select a user to start chatting"
             };
 
-            _mInformation = mInformation;
+            Information = mInformation;
         }
     }
 }

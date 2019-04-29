@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <TextBlock x:Name="Title" FontSize="40" TextAlignment="Center" Margin="60">Welcome to CPZ</TextBlock>
-        <TextBlock x:Name="Message" FontSize="20" FontStyle="Italic" TextAlignment="Center" Margin="30">Select a user to start chatting</TextBlock>
+        <TextBlock x:Name="Title" Text = "{Binding Path = Information.Title, Mode = OneWay}" 
+                   FontSize="40" Foreground="Gray" TextAlignment="Center" Margin="60"/>
+        <TextBlock x:Name="Message" Text = "{Binding Path = Information.Message, Mode = OneWay}" 
+                   FontSize="20" Foreground="LightGray" FontStyle="Italic" TextAlignment="Center" Margin="30"/>
     </StackPanel>
 </UserControl>

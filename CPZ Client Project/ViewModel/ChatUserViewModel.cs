@@ -41,9 +41,9 @@ namespace CPZ_Chat_Client.ViewModel
             //TODO: connect to REST to get users
             ObservableCollection<ChatUser> chatUsers = new ObservableCollection<ChatUser>();
 
-            chatUsers.Add(new ChatUser { Username = "Mark"});
-            chatUsers.Add(new ChatUser { Username = "Allen"});
-            chatUsers.Add(new ChatUser { Username = "Linda"});
+            chatUsers.Add(new ChatUser { Username = "Mark", IsOnline = true});
+            chatUsers.Add(new ChatUser { Username = "Allen", IsOnline = false });
+            chatUsers.Add(new ChatUser { Username = "Linda", IsOnline = false });
 
             ChatUsers = chatUsers;
         }
