@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="CPZ_Chat_Client.Views.InformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CPZ_Chat_Client.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical">
+        <TextBlock x:Name="Title" FontSize="40" TextAlignment="Center" Margin="60">Welcome to CPZ</TextBlock>
+        <TextBlock x:Name="Message" FontSize="20" FontStyle="Italic" TextAlignment="Center" Margin="30">Select a user to start chatting</TextBlock>
+    </StackPanel>
+</UserControl>
