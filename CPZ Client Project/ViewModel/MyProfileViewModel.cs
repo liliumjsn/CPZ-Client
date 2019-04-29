@@ -30,7 +30,6 @@ namespace CPZ_Chat_Client.ViewModel
             MyProfile mProfile = new MyProfile() {
                 Username = Environment.UserName
             };
-
             Profile = mProfile;
         }
     }
