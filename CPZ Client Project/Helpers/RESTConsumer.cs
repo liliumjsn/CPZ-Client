@@ -18,7 +18,7 @@ namespace CPZ_Chat_Client.Helpers
         private static string contentType = "application/json";
         private static string userAgent = "CPZ-Client";
 
-        public static IEnumerable<ChatUser> GetUsers()
+        public static async void GetUsers(Action<IEnumerable<ChatUser>> action)
         {
             using (WebClient client = new WebClient())
             {
@@ -27,19 +27,18 @@ namespace CPZ_Chat_Client.Helpers
                     client.Headers.Add(HttpRequestHeader.UserAgent, userAgent);
                     client.Headers.Add(HttpRequestHeader.ContentType, contentType);
                     string url = serverUrl + usersUrl;
-                    var response = client.DownloadString(url);
+                    var response = await client.DownloadStringTaskAsync(url);
                     IEnumerable<ChatUser> users = JsonConvert.DeserializeObject<IEnumerable<ChatUser>>(response);
-                    return users;
+                    action(users);
                 }
                 catch (Exception ex)
                 {
-                    Mediator.Notify("Error", new Information() { Title = "Oops!", Message = "Connecting to server failed!" });
+                    Mediator.Notify("LoadInformationView", new Information() { Title = "Oops!", Message = "Connecting to server failed!" });
                 }
-                return null;
             }
         }
 
-        public static IEnumerable<Message> GetChatHistory(string username)
+        public static async void GetChatHistory(string username, Action<IEnumerable<Message>> action)
         {
             using (WebClient client = new WebClient())
             {
@@ -48,15 +47,14 @@ namespace CPZ_Chat_Client.Helpers
                     client.Headers.Add(HttpRequestHeader.UserAgent, userAgent);
                     client.Headers.Add(HttpRequestHeader.ContentType, contentType);
                     string url = serverUrl + "/" + username;
-                    var response = client.DownloadString(url);
+                    var response = await client.DownloadStringTaskAsync(url);
                     IEnumerable<Message> chatHistory = JsonConvert.DeserializeObject<IEnumerable<Message>>(response);
-                    return chatHistory;
+                    action(chatHistory);
                 }
                 catch (Exception ex)
                 {
-                    Mediator.Notify("Error", new Information() { Title = "Oops!", Message = "Connecting to server failed!" });
+                    Mediator.Notify("LoadInformationView", new Information() { Title = "Oops!", Message = "Connecting to server failed!" });
                 }
-                return null;
             }
         }
     }

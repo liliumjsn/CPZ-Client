@@ -1,23 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using CPZ_Chat_Client.Helpers;
 using CPZ_Chat_Client.Model;
 
 namespace CPZ_Chat_Client.ViewModel
 {
-    public class ChatUserViewModel
+    public class ChatUserViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<ChatUser> chatUsers;
         public ObservableCollection<ChatUser> ChatUsers
         {
-            get;
-            set;
+            get
+            {
+                return chatUsers;
+            }
+            set
+            {
+                chatUsers = value;
+                RaisePropertyChanged("ChatUsers");
+            }
         }
         public ChatUserViewModel()
         {
-            LoadChatUsers();
+            RESTConsumer.GetUsers(OnDataReady);
         }
 
         private ChatUser _selectedChatUser;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+        }
 
         public ChatUser SelectedChatUser
         {
@@ -36,24 +56,9 @@ namespace CPZ_Chat_Client.ViewModel
             }
         }
 
-        public void LoadChatUsers()
+        private void OnDataReady(IEnumerable<ChatUser> response)
         {
-            //TODO: connect to REST to get users
-            
-            ObservableCollection<ChatUser> chatUsers = new ObservableCollection<ChatUser>();
-            var reponse = RESTConsumer.GetUsers();
-            if(reponse != null) chatUsers = new ObservableCollection<ChatUser>(reponse);
-
-            /*
-            chatUsers.Add(new ChatUser { Username = "Mark", IsOnline = true, HasUnreadMessages=true});
-            chatUsers.Add(new ChatUser { Username = "Allen", IsOnline = true, HasUnreadMessages = false });
-            chatUsers.Add(new ChatUser { Username = "Linda", IsOnline = false, HasUnreadMessages = false });
-            chatUsers.Add(new ChatUser { Username = "Lizzy", IsOnline = false, HasUnreadMessages = false });
-            chatUsers.Add(new ChatUser { Username = "Paul", IsOnline = false, HasUnreadMessages = false });
-            */
-
-
-            ChatUsers = chatUsers;
+            ChatUsers = new ObservableCollection<ChatUser>(response);
         }
     }
 }
