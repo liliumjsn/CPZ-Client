@@ -11,6 +11,7 @@ namespace CPZ_Chat_Client.Model
     {
         private string username;
         private bool isOnline;
+        private bool hasUnreadMessages;
 
         public string Username
         {
@@ -39,6 +40,21 @@ namespace CPZ_Chat_Client.Model
                 {
                     isOnline = value;
                     RaisePropertyChanged("IsOnline");
+                }
+            }
+        }
+        public bool HasUnreadMessages
+        {
+            get
+            {
+                return hasUnreadMessages;
+            }
+            set
+            {
+                if (hasUnreadMessages != value)
+                {
+                    hasUnreadMessages = value;
+                    RaisePropertyChanged("HasUnreadMessages");
                 }
             }
         }

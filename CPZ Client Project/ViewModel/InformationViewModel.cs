@@ -28,6 +28,11 @@ namespace CPZ_Chat_Client.ViewModel
         {
             LoadInitialInfo();
         }
+
+        public InformationViewModel(Information info)
+        {
+            Information = info;
+        }
         public void LoadInitialInfo()
         {
             Information mInformation = new Information()

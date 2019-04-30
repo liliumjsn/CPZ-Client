@@ -74,6 +74,7 @@
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\ChatCommand.cs" />
     <Compile Include="Helpers\Mediator.cs" />
+    <Compile Include="Helpers\RESTConsumer.cs" />
     <Compile Include="Model\ChatHistory.cs" />
     <Compile Include="Model\Information.cs" />
     <Compile Include="Model\Message.cs" />

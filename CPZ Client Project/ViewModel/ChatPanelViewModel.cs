@@ -58,9 +58,9 @@ namespace CPZ_Chat_Client.ViewModel
         public ChatPanelViewModel(ChatUser chatUser)
         {
             CurChatUser = chatUser;
+            CurChatUser.HasUnreadMessages = false;
             LoadChatHistory();
-            SendMessageCommand = new ChatCommand<string>(OnSend, CanSend);
-            
+            SendMessageCommand = new ChatCommand<string>(OnSend, CanSend);            
         }
 
         private bool CanSend(string str)
@@ -87,35 +87,38 @@ namespace CPZ_Chat_Client.ViewModel
         {
             ChatHistory chatHistory = new ChatHistory();
 
+            /*
             chatHistory.Add(new Message
             {
                 IsMine = false,
                 Content = "Hello",
                 Timestamp = new DateTime(2019, 03, 28, 22, 35, 5,
-                new CultureInfo("en-US", false).Calendar)
+                new CultureInfo("en-UK", false).Calendar)
             });
             chatHistory.Add(new Message
             {
                 IsMine = true,
                 Content = "Hi "+ CurChatUser.Username,
                 Timestamp = new DateTime(2019, 03, 28, 22, 37, 5,
-                new CultureInfo("en-US", false).Calendar)
+                new CultureInfo("en-UK", false).Calendar)
             });
             chatHistory.Add(new Message
             {
                 IsMine = false,
                 Content = "How are you",
                 Timestamp = new DateTime(2019, 03, 28, 22, 38, 5,
-                new CultureInfo("en-US", false).Calendar)
+                new CultureInfo("en-UK", false).Calendar)
             });
             chatHistory.Add(new Message
             {
                 IsMine = true,
                 Content = "Fine",
                 Timestamp = new DateTime(2019, 03, 28, 22, 39, 5,
-                new CultureInfo("en-US", false).Calendar)
+                new CultureInfo("en-UK", false).Calendar)
             });
-
+            */
+            var response = RESTConsumer.GetChatHistory(CurChatUser.Username);
+            if (response != null) chatHistory = new ChatHistory(response);
             PanelChatHistory = chatHistory;
         }
         public void RefreshChatHistory()

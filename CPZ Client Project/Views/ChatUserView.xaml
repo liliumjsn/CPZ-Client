@@ -13,21 +13,34 @@
                     <Ellipse
                         Width="7"
                         Height="7"
-                        Fill="ForestGreen"
                         Margin="3">
                         <Ellipse.Style>
                             <Style TargetType="Ellipse">
                                 <Setter Property="Fill" Value="DarkGray" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path = IsOnline, Mode = OneWay}" Value="False">
-                                        <Setter Property="Fill" Value="ForestGreen" />
+                                    <DataTrigger Binding="{Binding Path = IsOnline, Mode = OneWay}" Value="true">
+                                        <Setter Property="Fill" Value="{DynamicResource PrimaryHueMidBrush}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Ellipse.Style>
                     </Ellipse>
-                    <TextBlock FontSize="15" Text = "{Binding Path = Username, Mode = OneWay}" 
-                        Margin = "5 5 3 5"/>
+                    <TextBlock Name ="usernameTextblock" VerticalAlignment="Center" FontSize="15" 
+                               Text = "{Binding Path = Username, Mode = OneWay}" Margin = "5"/>
+                    <TextBlock Name ="unreadMsgTextblock" VerticalAlignment="Center" 
+                               Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="10" 
+                               Text = "New Messages!" Margin = "5,0,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path = HasUnreadMessages, Mode = TwoWay}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

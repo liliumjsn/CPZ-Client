@@ -42,10 +42,10 @@
                                   IsChecked="{Binding Path=IsOpen,Mode=TwoWay,ElementName=Popup1}" ClickMode="Press" VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="User"/>
                 </ToggleButton>
-                <Popup VerticalAlignment="Top"   PlacementTarget="{Binding ElementName=ToggleButton1}" 
+                <Popup VerticalAlignment="Top"  PlacementTarget="{Binding ElementName=ToggleButton1}" 
                            HorizontalAlignment="Left" Name="Popup1" Placement="Left" IsOpen="False"  AllowsTransparency="True" 
                            Focusable="False" PopupAnimation="Slide">
-                    <Menu HorizontalAlignment="Left">
+                    <Menu HorizontalAlignment="Left" Background="LightGray">
                         <Menu.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />

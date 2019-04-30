@@ -15,7 +15,10 @@
             Command = "{Binding SendMessageCommand}">
                     <materialDesign:PackIcon Kind="Send"/>
                 </Button>
-                <TextBox Text="{Binding ComposingMessage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,20,0" >
+                <TextBox TextWrapping="Wrap" Text="{Binding ComposingMessage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,20,0" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command = "{Binding SendMessageCommand}"/>
+                    </TextBox.InputBindings>
                 </TextBox>
             </DockPanel>
         </Border>
@@ -34,7 +37,8 @@
                             <Border CornerRadius="15"
                             Padding="10"
                             Margin="5"
-                            MinWidth="10">
+                            MinWidth="10"
+                            ToolTip="{Binding Path=Timestamp}">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="LightGray" />
@@ -47,7 +51,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" 
+                                <TextBlock MaxWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" 
                                    Text = "{Binding Path = Content, Mode = OneWay}" TextWrapping="Wrap"/>
                             </Border>
                         </Grid>

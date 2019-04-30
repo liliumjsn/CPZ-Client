@@ -16,6 +16,7 @@ namespace CPZ_Chat_Client.ViewModel
             CurrentViewModel = new InformationViewModel();
             Mediator.Register("LoadChatPanelView", LoadChatPanelView);
             Mediator.Register("LoadInformationView", LoadInformationView);
+            Mediator.Register("Error", LoadInformationErrorView);
         }
 
         private BindableBase currentViewModel;
@@ -33,5 +34,10 @@ namespace CPZ_Chat_Client.ViewModel
         {
             CurrentViewModel = new InformationViewModel();
         }
+        private void LoadInformationErrorView(object args)
+        {
+            CurrentViewModel = new InformationViewModel(args as Information);
+        }
+
     }
 }
