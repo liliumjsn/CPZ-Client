@@ -8,18 +8,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill ="true">
-        <Border Padding="20" DockPanel.Dock="Bottom">
+        <Border Name ="msgCompositionBorder" Padding="20" DockPanel.Dock="Bottom" Margin="1">
             <DockPanel LastChildFill ="true">
                 <Button DockPanel.Dock="Right" Style="{StaticResource MaterialDesignFloatingActionButton}" 
                         Width="30" Height="30"
             Command = "{Binding SendMessageCommand}">
                     <materialDesign:PackIcon Kind="Send"/>
                 </Button>
-                <TextBox TextWrapping="Wrap" Text="{Binding ComposingMessage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,20,0" >
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command = "{Binding SendMessageCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
+                <Border Name ="msgTextboxWrapper"  Margin="0,0,20,0">
+                    <TextBox Width="{Binding ElementName=msgTextboxWrapper, Path=ActualWidth}" 
+                         ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" MaxHeight="50" MaxLength="500"
+                         Text="{Binding ComposingMessage, UpdateSourceTrigger=PropertyChanged}" >
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command = "{Binding SendMessageCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </Border>                
             </DockPanel>
         </Border>
         <Border DockPanel.Dock="Top" BorderThickness="0,0,0,1" BorderBrush="LightGray" Margin="10,0,10,0">
@@ -37,8 +41,25 @@
                             <Border CornerRadius="15"
                             Padding="10"
                             Margin="5"
-                            MinWidth="10"
-                            ToolTip="{Binding Path=Timestamp}">
+                            MinWidth="10">
+                                <Border.ToolTip>
+                                    <ToolTip Background="Transparent" VerticalOffset="8" BorderThickness="0">
+                                        <ToolTip.Style>
+                                            <Style TargetType="ToolTip">
+                                                <Setter Property="Placement" Value="Right" />
+                                                <Setter Property="HorizontalOffset" Value="10" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsMine}" Value="True">
+                                                        <Setter Property="Placement" Value="Left" />
+                                                        <Setter Property="HorizontalOffset" Value="-10" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ToolTip.Style>
+                                        <TextBlock MaxWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" 
+                                        Text = "{Binding Path=Timestamp}" TextWrapping="Wrap"/>
+                                    </ToolTip>
+                                </Border.ToolTip>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="LightGray" />

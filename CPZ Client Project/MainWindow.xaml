@@ -37,14 +37,15 @@
                 <StackPanel.DataContext>
                     <viewModels:MyProfileViewModel/>
                 </StackPanel.DataContext>
-                <ToggleButton x:Name= "ToggleButton1" Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                <ToggleButton x:Name= "menuToggleButton" Style="{StaticResource MaterialDesignFloatingActionButton}" 
                                   Width = "30" Height = "30" Margin="0,0,10,0"
-                                  IsChecked="{Binding Path=IsOpen,Mode=TwoWay,ElementName=Popup1}" ClickMode="Press" VerticalAlignment="Top">
+                                  ClickMode="Press"  VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="User"/>
                 </ToggleButton>
-                <Popup VerticalAlignment="Top"  PlacementTarget="{Binding ElementName=ToggleButton1}" 
-                           HorizontalAlignment="Left" Name="Popup1" Placement="Left" IsOpen="False"  AllowsTransparency="True" 
-                           Focusable="False" PopupAnimation="Slide">
+                <Popup VerticalAlignment="Top"  PlacementTarget="{Binding ElementName=menuToggleButton}" 
+                           HorizontalAlignment="Left" Name="menuPopup" Placement="Left" 
+                           IsOpen="{Binding Path=IsChecked, Mode=TwoWay, ElementName=menuToggleButton}"
+                           PopupAnimation="Slide"  StaysOpen="False" Focusable="False">
                     <Menu HorizontalAlignment="Left" Background="LightGray">
                         <Menu.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -59,7 +60,7 @@
                     </Menu>
                 </Popup>
                 <TextBlock Text = "{Binding Path = Username, Mode = OneWay}" 
-                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="15" Margin="0,4,0,4">
+                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="18" Margin="0,4,0,4">
                 </TextBlock>
             </StackPanel>
             <dragablz:TabablzControl FixedHeaderCount="3" BorderThickness="0">
