@@ -58,8 +58,8 @@
                         <MenuItem Header="Exit" />
                     </Menu>
                 </Popup>
-                <TextBlock Text = "{Binding Path = Profile.Username, Mode = OneWay}" 
-                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="15" Margin="0,4,0,4.4">
+                <TextBlock Text = "{Binding Path = Username, Mode = OneWay}" 
+                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="15" Margin="0,4,0,4">
                 </TextBlock>
             </StackPanel>
             <dragablz:TabablzControl FixedHeaderCount="3" BorderThickness="0">

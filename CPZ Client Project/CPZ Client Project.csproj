@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon %282%29.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
@@ -74,7 +77,10 @@
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\ChatCommand.cs" />
     <Compile Include="Helpers\Mediator.cs" />
+    <Compile Include="Helpers\RESTConstants.cs" />
     <Compile Include="Helpers\RESTConsumer.cs" />
+    <Compile Include="Helpers\RESTProducer.cs" />
+    <Compile Include="Helpers\WebSocketService.cs" />
     <Compile Include="Model\ChatHistory.cs" />
     <Compile Include="Model\Information.cs" />
     <Compile Include="Model\Message.cs" />
@@ -149,6 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon %282%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

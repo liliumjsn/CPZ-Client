@@ -9,38 +9,98 @@ namespace CPZ_Chat_Client.Model
 {
     public class ChatUser : INotifyPropertyChanged
     {
-        private string username;
-        private bool isOnline;
+        private int _id;
+        private string _username;
+        private bool _is_active;
+        private bool _is_staff;
+        private DateTime _last_login;
+        private bool _is_new;
+        //TODO: To be removed?
         private bool hasUnreadMessages;
-
+                
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
         public string Username
         {
             get
             {
-                return username;
+                return _username;
             }
             set
             {
-                if (username != value)
+                if (_username != value)
                 {
-                    username = value;
+                    _username = value;
                     RaisePropertyChanged("Username");
                 }
             }
         }
 
-        public bool IsOnline {
+        public bool Is_active
+        {
             get
             {
-                return isOnline;
+                return _is_active;
             }
             set
             {
-                if (isOnline != value)
+                if (_is_active != value)
                 {
-                    isOnline = value;
-                    RaisePropertyChanged("IsOnline");
+                    _is_active = value;
+                    RaisePropertyChanged("Is_active");
                 }
+            }
+        }
+        public DateTime Last_login
+        {
+            get
+            {
+                return _last_login;
+            }
+            set
+            {
+                if (_last_login != value)
+                {
+                    _last_login = value;
+                    RaisePropertyChanged("Last_login");
+                }
+            }
+        }        
+        public bool Is_staff {
+            get
+            {
+                return _is_staff;
+            }
+            set
+            {
+                _is_staff = value;
+                RaisePropertyChanged("Is_staff");
+            }
+        }
+        public bool Is_new
+        {
+            get
+            {
+                return _is_new;
+            }
+            set
+            {
+                _is_new = value;
+                RaisePropertyChanged("Is_new");
             }
         }
         public bool HasUnreadMessages

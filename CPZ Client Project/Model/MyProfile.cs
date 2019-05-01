@@ -7,30 +7,27 @@ using System.Threading.Tasks;
 
 namespace CPZ_Chat_Client.Model
 {
-    public class MyProfile : INotifyPropertyChanged
+    public static class MyProfile
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private string username;
-        public string Username
+        private static ChatUser _chatUserObject;
+        public static string DefaultUsername
         {
             get
             {
-                return username;
+                return Environment.UserName;
+            }
+        }
+
+        public static ChatUser ChatUserObject
+        {
+            get
+            {
+                if (_chatUserObject != null) return _chatUserObject;
+                else return new ChatUser() { Username = MyProfile.DefaultUsername};
             }
             set
             {
-                if (username != value)
-                {
-                    username = value;
-                    RaisePropertyChanged("Username");
-                }
-            }
-        }
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
+                _chatUserObject = value;
             }
         }
     }

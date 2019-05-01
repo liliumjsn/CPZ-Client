@@ -18,7 +18,7 @@
                             <Style TargetType="Ellipse">
                                 <Setter Property="Fill" Value="DarkGray" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path = IsOnline, Mode = OneWay}" Value="true">
+                                    <DataTrigger Binding="{Binding Path = Is_active, Mode = OneWay}" Value="true">
                                         <Setter Property="Fill" Value="{DynamicResource PrimaryHueMidBrush}" />
                                     </DataTrigger>
                                 </Style.Triggers>

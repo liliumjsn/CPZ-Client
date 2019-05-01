@@ -12,11 +12,7 @@ namespace CPZ_Chat_Client.Helpers
 {
     public static class RESTConsumer
     {
-
-        private static string serverUrl = "https://my-json-server.typicode.com/liliumjsn/CPZ-JSON-Test";
-        private static string usersUrl = "/Users";
-        private static string contentType = "application/json";
-        private static string userAgent = "CPZ-Client";
+        
 
         public static async void GetUsers(Action<IEnumerable<ChatUser>> action)
         {
@@ -24,9 +20,8 @@ namespace CPZ_Chat_Client.Helpers
             {
                 try
                 {
-                    client.Headers.Add(HttpRequestHeader.UserAgent, userAgent);
-                    client.Headers.Add(HttpRequestHeader.ContentType, contentType);
-                    string url = serverUrl + usersUrl;
+                    RESTConstants.AddHeaders(client);
+                    string url = RESTConstants.serverUrl + RESTConstants.usersUrl;
                     var response = await client.DownloadStringTaskAsync(url);
                     IEnumerable<ChatUser> users = JsonConvert.DeserializeObject<IEnumerable<ChatUser>>(response);
                     action(users);
@@ -37,16 +32,15 @@ namespace CPZ_Chat_Client.Helpers
                 }
             }
         }
-
+        //TODO: send userd id, NOT username
         public static async void GetChatHistory(string username, Action<IEnumerable<Message>> action)
         {
             using (WebClient client = new WebClient())
             {
                 try
                 {
-                    client.Headers.Add(HttpRequestHeader.UserAgent, userAgent);
-                    client.Headers.Add(HttpRequestHeader.ContentType, contentType);
-                    string url = serverUrl + "/" + username;
+                    RESTConstants.AddHeaders(client);
+                    string url = RESTConstants.serverUrl + "/" + username;
                     var response = await client.DownloadStringTaskAsync(url);
                     IEnumerable<Message> chatHistory = JsonConvert.DeserializeObject<IEnumerable<Message>>(response);
                     action(chatHistory);
@@ -56,6 +50,21 @@ namespace CPZ_Chat_Client.Helpers
                     Mediator.Notify("LoadInformationView", new Information() { Title = "Oops!", Message = "Connecting to server failed!" });
                 }
             }
+        }
+        //TODO: unfinished
+        public static async void GetRecents(string username, Action<IEnumerable<Message>> action)
+        {
+            
+        }
+        //TODO: unfinished
+        public static async void GetNewMessages(string username, Action<IEnumerable<Message>> action)
+        {
+            
+        }
+        //TODO: unfinished
+        public static async void GetGroups(string username, Action<IEnumerable<Message>> action)
+        {
+
         }
     }
 }

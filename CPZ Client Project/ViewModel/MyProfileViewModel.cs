@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CPZ_Chat_Client.Helpers;
 using CPZ_Chat_Client.Model;
 
 namespace CPZ_Chat_Client.ViewModel
 {
     public class MyProfileViewModel
     {
-        private MyProfile profile;
-        public MyProfile Profile
+        private string username;
+        public string Username
         {
             get
             {
-                return profile;
+                return username;
             }
             set
             {
-                profile = value;
+                username = value;
             }
         }
         public MyProfileViewModel()
         {
             LoadProfile();
+            //RESTProducer.Connect();
         }
         public void LoadProfile()
         {
-            MyProfile mProfile = new MyProfile() {
-                Username = Environment.UserName
-            };
-            Profile = mProfile;
+            Username = MyProfile.DefaultUsername;
         }
     }
 }
