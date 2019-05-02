@@ -10,7 +10,8 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:views = "clr-namespace:CPZ_Chat_Client.Views"
         xmlns:viewModels = "clr-namespace:CPZ_Chat_Client.ViewModel"
-         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        xmlns:controlzEx="clr-namespace:ControlzEx;assembly=MaterialDesignThemes.Wpf"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
          TextElement.FontWeight="Regular"
          TextElement.FontSize="13"
          TextOptions.TextFormattingMode="Ideal"
@@ -29,38 +30,83 @@
         <DataTemplate DataType = "{x:Type viewModels:ChatPanelViewModel}">
             <views:ChatPanelView/>
         </DataTemplate>
-    </Window.Resources>
-    
+    </Window.Resources>    
     <DockPanel LastChildFill ="true">
         <DockPanel LastChildFill ="true" DockPanel.Dock="Left" MinWidth="240">
             <StackPanel Orientation="Horizontal" Height="30" DockPanel.Dock="Top" Margin="10">
                 <StackPanel.DataContext>
                     <viewModels:MyProfileViewModel/>
                 </StackPanel.DataContext>
-                <ToggleButton x:Name= "menuToggleButton" Style="{StaticResource MaterialDesignFloatingActionButton}" 
-                                  Width = "30" Height = "30" Margin="0,0,10,0"
-                                  ClickMode="Press"  VerticalAlignment="Top">
-                    <materialDesign:PackIcon Kind="User"/>
-                </ToggleButton>
-                <Popup VerticalAlignment="Top"  PlacementTarget="{Binding ElementName=menuToggleButton}" 
-                           HorizontalAlignment="Left" Name="menuPopup" Placement="Left" 
-                           IsOpen="{Binding Path=IsChecked, Mode=TwoWay, ElementName=menuToggleButton}"
-                           PopupAnimation="Slide"  StaysOpen="False" Focusable="False">
-                    <Menu HorizontalAlignment="Left" Background="LightGray">
-                        <Menu.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel />
-                            </ItemsPanelTemplate>
-                        </Menu.ItemsPanel>
-                        <MenuItem Header="Settings" />
-                        <MenuItem Header="Broadcast" />
-                        <MenuItem Header="Maintenance" />
-                        <MenuItem Header="About" />
-                        <MenuItem Header="Exit" />
-                    </Menu>
-                </Popup>
+                <materialDesign:PopupBox x:Name="menuButton"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                         Width = "30" Height = "30" Margin="0,0,10,0"
+                                         PlacementMode="RightAndAlignMiddles"
+                                         PopupMode="Click"
+                                         StaysOpen="False">
+                    <materialDesign:PopupBox.ToggleCheckedContent>
+                        <materialDesign:PackIcon Kind="Menu" Width="18" Height="18" />
+                    </materialDesign:PopupBox.ToggleCheckedContent>
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Kind="User" Width="18" Height="18" />
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel Orientation="Horizontal" Height="30" Margin="0,0,0,1">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Width="30" Height="30" Margin="3,0,8,0">
+                            <materialDesign:PackIcon Kind="Settings" Width="18" Height="18"/>
+                            <Button.ToolTip>
+                                <ToolTip Placement="Bottom" HorizontalAlignment="Center">
+                                    Settings
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}"  Width="30" Height="30" Margin="0,0,8,0">
+                            <materialDesign:PackIcon Kind="Speak" Width="18" Height="18"/>
+                            <Button.ToolTip>
+                                <ToolTip Placement="Bottom" HorizontalAlignment="Center">
+                                    Broadcast
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Width="30" Height="30" Margin="0,0,8,0">
+                            <materialDesign:PackIcon Kind="Wrench" Width="18" Height="18"/>
+                            <Button.ToolTip>
+                                <ToolTip Placement="Bottom" HorizontalAlignment="Center">
+                                    Maintenance
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Width="30" Height="30" Margin="0,0,8,0">
+                            <materialDesign:PackIcon Kind="Information" Width="18" Height="18"/>
+                            <Button.ToolTip>
+                                <ToolTip Placement="Bottom" HorizontalAlignment="Center">
+                                    About
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Width="30" Height="30" Margin="0,0,8,0">
+                            <materialDesign:PackIcon Kind="ExitToApp" Width="18" Height="18"/>
+                            <Button.ToolTip>
+                                <ToolTip Placement="Bottom" HorizontalAlignment="Center">
+                                    Exit
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
                 <TextBlock Text = "{Binding Path = Username, Mode = OneWay}" 
-                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="18" Margin="0,4,0,4">
+                                Name="myProfileUsername" VerticalAlignment="Center" FontSize="18" Margin="0,4,0,4"
+                           TextTrimming="CharacterEllipsis" MaxWidth="150">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=menuButton, Path=IsPopupOpen}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                 </TextBlock>
             </StackPanel>
             <dragablz:TabablzControl FixedHeaderCount="3" BorderThickness="0">

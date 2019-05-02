@@ -25,6 +25,7 @@ namespace CPZ_Chat_Client.ViewModel
         public MyProfileViewModel()
         {
             LoadProfile();
+            WebSocketManager.InitializeWebSocketService();
             //RESTProducer.Connect();
         }
         public void LoadProfile()

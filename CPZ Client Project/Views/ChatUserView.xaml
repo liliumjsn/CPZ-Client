@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CPZ_Chat_Client.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ListView Name="recentChats" ItemsSource="{Binding Path = ChatUsers}" SelectedItem = "{Binding SelectedChatUser}">
@@ -26,10 +27,11 @@
                         </Ellipse.Style>
                     </Ellipse>
                     <TextBlock Name ="usernameTextblock" VerticalAlignment="Center" FontSize="15" 
-                               Text = "{Binding Path = Username, Mode = OneWay}" Margin = "5"/>
+                               Text = "{Binding Path = Username, Mode = OneWay}" Margin = "5" 
+                               TextTrimming="CharacterEllipsis" MaxWidth="150"/>
                     <TextBlock Name ="unreadMsgTextblock" VerticalAlignment="Center" 
-                               Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="10" 
-                               Text = "New Messages!" Margin = "5,0,0,0">
+                               Foreground="{DynamicResource SecondaryAccentBrush}" FontSize="10">
+                        <materialDesign:PackIcon Kind="MessageAlert" Width="20" Height="20" />
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Hidden" />
